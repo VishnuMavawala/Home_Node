@@ -6,10 +6,10 @@ const pusherConfig = require('./pusher.json');
 const pusherClient = new Pusher(pusherConfig);
 
 var arr=[];
-arr['u112']=[
+/*arr['u112']=[
     {key: 1, value: true},
     {key: 2, value: false},
-    {key: 3, value: true} ];
+    {key: 3, value: true} ];*/
 
 const app = express();
 app.use(bodyParser.json());
@@ -27,6 +27,12 @@ app.post('/api/:user/part', (req, res) => {
     pusherClient.trigger(req.params.user, 'part', arr[req.params.user]);
     res.sendStatus(204);
 });
+
+app.post('/api/:user/assign', (req, res) => {
+    arr[req.params.user]=req.body;
+    pusherClient.trigger(req.params.user, 'init', arr[req.params.user]);
+    res.sendStatus(204);
+})
 
 var port=process.env.PORT || 4000;
 
