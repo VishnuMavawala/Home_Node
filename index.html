@@ -6,15 +6,14 @@
     <script>
 
         var user = 'u112';
-
+        var pusher;
         var arr = [];
         Pusher.logToConsole = true;
 
         function firstInit() {
             user=document.getElementById('userId').value;
-            pusher.unsubscribe(user);
-
-            var pusher = new Pusher('838dfd84040c7cb94a09', {
+            
+            pusher = new Pusher('838dfd84040c7cb94a09', {
                 cluster: 'ap2',
                 encrypted: true
             });
