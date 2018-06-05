@@ -12,7 +12,7 @@
 
         function firstInit() {
             user=document.getElementById('userId').value;
-            pusher.subscribe(user);
+            pusher.unsubscribe(user);
 
             var pusher = new Pusher('838dfd84040c7cb94a09', {
                 cluster: 'ap2',
