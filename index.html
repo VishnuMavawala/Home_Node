@@ -12,9 +12,8 @@
 
         function firstInit() {
             user=document.getElementById('userId').value;
-            fetch(`./api/${user}/init`, {
-                method: 'GET'
-            })
+            pusher.subscribe(user);
+
             var pusher = new Pusher('838dfd84040c7cb94a09', {
                 cluster: 'ap2',
                 encrypted: true
@@ -29,6 +28,10 @@
                 arr = data;
                 createBtn();
             });
+
+            fetch(`./api/${user}/init`, {
+                method: 'GET'
+            })
         }
 
         function handlePart(index, key, value)
