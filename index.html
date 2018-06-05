@@ -11,6 +11,7 @@
         Pusher.logToConsole = true;
 
         function firstInit() {
+            user=document.getElementById('userId').value;
             fetch(`./api/${user}/init`, {
                 method: 'GET'
             })
@@ -56,7 +57,7 @@
     </script>
 </head>
 <body>
-    <input type="text" value="112" placeholder="userId">
+    <input type="text" value="u112" placeholder="userId" id="userId">
     <input type="button" value="submit" onclick="firstInit();">
     <div id="root"></div>
 </body>
