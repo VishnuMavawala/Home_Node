@@ -7,27 +7,28 @@
 
         var user = 'u112';
 
-        fetch(`./api/${user}/init`, {
-            method: 'GET'
-        });
-
         var arr = [];
         Pusher.logToConsole = true;
 
-        var pusher = new Pusher('838dfd84040c7cb94a09', {
-            cluster: 'ap2',
-            encrypted: true
-        });
+        function firstInit() {
+            fetch(`./api/${user}/init`, {
+                method: 'GET'
+            })
+            var pusher = new Pusher('838dfd84040c7cb94a09', {
+                cluster: 'ap2',
+                encrypted: true
+            });
 
-        var channel = pusher.subscribe(user);
-        channel.bind('init', function(data) {
-            arr=data;
-            createBtn();
-        });
-        channel.bind('part', (data) => {
-            arr=data;
-            createBtn();
-        });
+            var channel = pusher.subscribe(user);
+            channel.bind('init', function (data) {
+                arr = data;
+                createBtn();
+            });
+            channel.bind('part', (data) => {
+                arr = data;
+                createBtn();
+            });
+        }
 
         function handlePart(index, key, value)
         {
@@ -54,7 +55,9 @@
         }
     </script>
 </head>
-<body onload="createBtn()">
+<body>
+    <input type="text" value="112" placeholder="userId">
+    <input type="button" value="submit" onclick="firstInit();">
     <div id="root"></div>
 </body>
 </html>
