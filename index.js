@@ -30,6 +30,7 @@ app.post('/api/:user/part', (req, res) => {
 
 var port=process.env.PORT || 4000;
 
+app.use('/', express.static(__dirname + '/'));
 app.listen(port, function() {
     console.log('App listening on port ', port);
 });

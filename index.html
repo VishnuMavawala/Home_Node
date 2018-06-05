@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Automation web</title>
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
+    <script>
+
+        var user = 'u112';
+
+        fetch(`./api/${user}/init`, {
+            method: 'GET'
+        });
+
+        var arr = [];
+        Pusher.logToConsole = true;
+
+        var pusher = new Pusher('838dfd84040c7cb94a09', {
+            cluster: 'ap2',
+            encrypted: true
+        });
+
+        var channel = pusher.subscribe(user);
+        channel.bind('init', function(data) {
+            arr=data;
+            createBtn();
+        });
+        channel.bind('part', (data) => {
+            arr=data;
+            createBtn();
+        });
+
+        function handlePart(index, key, value)
+        {
+            arr[index].value=!value;
+            fetch(`./api/${user}/part`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(arr)
+            });
+        }
+
+        function createBtn()
+        {
+            var root = document.getElementById('root');
+
+            var tbl = "<table border='1'><tr><td>No</td><td>Button</td></td>";
+            tbl+=arr.map((dat, index) => "<tr><td>"+dat.key+"</td><td>" +
+                `<button onclick='handlePart(${index}, ${dat.key}, ${dat.value});' style='color: ${dat.value?'green':'red'};'>${dat.value}</button></td></tr>`);
+            tbl+="</table>";
+
+            root.innerHTML=tbl;
+        }
+    </script>
+</head>
+<body onload="createBtn()">
+    <div id="root"></div>
+</body>
+</html>
