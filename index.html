@@ -5,14 +5,14 @@
     <script src="https://js.pusher.com/4.1/pusher.min.js"></script>
     <script>
 
-        var user = 'u112';
+        var user;
         var pusher;
         var arr = [];
         Pusher.logToConsole = true;
 
         function firstInit() {
             user=document.getElementById('userId').value;
-            
+
             pusher = new Pusher('32c679fbef206b43bbda', {
                 cluster: 'ap2',
                 encrypted: true
@@ -49,9 +49,10 @@
         {
             var root = document.getElementById('root');
 
-            var tbl = "<table border='1'><tr><td>No</td><td>Button</td></td>";
+            var tbl = "<table border='1'><tr><th>No</th><th>Action</th></td>";
             tbl+=arr.map((dat, index) => "<tr><td>"+dat.key+"</td><td>" +
                 `<button onclick='handlePart(${index}, ${dat.key}, ${dat.value});' style='color: ${dat.value?'green':'red'};'>${dat.value}</button></td></tr>`);
+            tbl+=arr.length==0?"<tr><td colspan='2'><i>No connected Pi</i></td></tr>":"";
             tbl+="</table>";
 
             root.innerHTML=tbl;

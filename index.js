@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 app.get('/api/:user/init', function(req, res) {
     console.log('User joined: ' + req.params.user);
-    pusherClient.trigger(req.params.user, 'init', arr[req.params.user]);
+    pusherClient.trigger(req.params.user, 'init', arr[req.params.user] || []);
     res.sendStatus(204);
 });
 
@@ -24,13 +24,13 @@ app.post('/api/:user/part', (req, res) => {
     console.log('change part: ' + req.params.user);
     arr[req.params.user]=req.body;
 
-    pusherClient.trigger(req.params.user, 'part', arr[req.params.user]);
+    pusherClient.trigger(req.params.user, 'part', arr[req.params.user] || []);
     res.sendStatus(204);
 });
 
 app.post('/api/:user/assign', (req, res) => {
     arr[req.params.user]=req.body;
-    pusherClient.trigger(req.params.user, 'init', arr[req.params.user]);
+    pusherClient.trigger(req.params.user, 'init', arr[req.params.user] || []);
     res.sendStatus(204);
 })
 
