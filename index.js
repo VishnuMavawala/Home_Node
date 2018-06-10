@@ -40,3 +40,7 @@ app.use('/', express.static(__dirname + '/'));
 app.listen(port, function() {
     console.log('App listening on port ', port);
 });
+
+// Continue Run for Server
+setInterval(()=> console.log("Continue run..."), 60000);
+
