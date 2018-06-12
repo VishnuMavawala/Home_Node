@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(function (req, res, next) {
 
     // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'https://home-static-server.herokuapp.com');
+    res.setHeader('Access-Control-Allow-Origin', '*');
 
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
 app.get('/api/:user/init', function(req, res) {
     console.log('User joined: ' + req.params.user);
     pusherClient.trigger(req.params.user, 'init', arr[req.params.user] || []);
-    res.setHeader('Access-Control-Allow-Origin', 'https://home-static-server.herokuapp.com');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.sendStatus(204);
 });
 
