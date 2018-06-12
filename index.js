@@ -36,6 +36,7 @@ app.use(function (req, res, next) {
 app.get('/api/:user/init', function(req, res) {
     console.log('User joined: ' + req.params.user);
     pusherClient.trigger(req.params.user, 'init', arr[req.params.user] || []);
+    res.setHeader('Access-Control-Allow-Origin', 'https://home-static-server.herokuapp.com');
     res.sendStatus(204);
 });
 
