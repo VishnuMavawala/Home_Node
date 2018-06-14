@@ -6,10 +6,6 @@ const pusherConfig = require('./pusher.json');
 const pusherClient = new Pusher(pusherConfig);
 
 var arr=[];
-/*arr['u112']=[
-    {key: 1, value: true},
-    {key: 2, value: false},
-    {key: 3, value: true} ];*/
 
 const app = express();
 app.use(bodyParser.json());
@@ -42,5 +38,5 @@ app.listen(port, function() {
 });
 
 // Continue Run for Server
-setInterval(()=> console.log("Continue run..."), 60000);
+setInterval(()=> console.log("Continue run..."), 600000);
 
